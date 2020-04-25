@@ -94,34 +94,19 @@ class CSN(nn.Module):
         
         return nn.Sequential(*layers)
     
-    def forward(self, x, debug=False):
+    def forward(self, x):
         
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
-        if debug:
-            print("shape1:", out.shape)
         out = self.max_pool(out)
-        if debug:
-            print("shape2:", out.shape)
         
         out = self.layer1(out)
-        if debug:
-            print("shape3:", out.shape)
         out = self.layer2(out)
-        if debug:
-            print("shape4:", out.shape)
         out = self.layer3(out)
-        if debug:
-            print("shape5:", out.shape)
         out = self.layer4(out)
-        if debug:
-            print("shape6:", out.shape)
         
         out = self.avg_pool(out)
-        if debug:
-            print("shape7:", out.shape)
-        
         out = out.view(out.size(0), -1)
         out = self.fc(out)
         
